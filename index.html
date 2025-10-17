@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>亲爱的鑫雨</title>
+  <style>
+    body { 
+      margin: 0; 
+      overflow: hidden; 
+      font-family: "Microsoft YaHei", sans-serif; 
+      background: #fff;
+    }
+    .popup {
+      position: fixed;
+      padding: 16px 20px;
+      background: pink;
+      border-radius: 12px;
+      font-size: 18px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      animation: pop 0.4s ease-out forwards;
+      cursor: pointer;
+      user-select: none;
+      max-width: 70%;
+    }
+    @keyframes pop {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .btn {
+      position: fixed;
+      left: 50%; 
+      top: 50%;
+      transform: translate(-50%, -50%);
+      padding: 14px 28px;
+      background: #ff4d6d;
+      color: #fff;
+      border: none;
+      border-radius: 999px;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(255,77,109,0.4);
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <button class="btn" onclick="start()">点击发送“我想你了”</button>
+
+  <script>
+    const texts = [
+      "我想你了！",
+      "喜欢你～",
+      "你是我的唯一",
+      "今天也要开心呀",
+      "愿你被世界温柔以待",
+      "我会一直陪着你",
+      "见到你就会笑",
+      "你是我每天的心动"
+    ];
+    const colors = ["pink", "lightblue"];
+
+    function createPopup() {
+      const p = document.createElement("div");
+      p.className = "popup";
+      p.textContent = texts[Math.floor(Math.random() * texts.length)];
+      p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      
+      const w = window.innerWidth, h = window.innerHeight;
+      const x = Math.random() * (w - 180) + 10;
+      const y = Math.random() * (h - 80) + 10;
+      p.style.left = x + "px";
+      p.style.top = y + "px";
+      
+      // 点击弹窗关闭
+      p.onclick = function() {
+        p.style.opacity = 0;
+        setTimeout(() => p.remove(), 300);
+      };
+      
+      document.body.appendChild(p);
+    }
+
+    function start() {
+      document.querySelector(".btn").disabled = true;
+      // 弹窗数量：100个
+      for (let i = 0; i < 100; i++) {
+        setTimeout(createPopup, i * 60);
+      }
+      setTimeout(() => document.querySelector(".btn").disabled = false, 6500);
+    }
+  </script>
+</body>
+</html>
